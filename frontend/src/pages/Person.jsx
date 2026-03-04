@@ -10,7 +10,7 @@ export default function Person() {
   const [deletingId, setDeletingId] = useState(null);
   const navigate = useNavigate();
 
-useEffect(() => { fetchData(); }, [fetchData]);
+useEffect(() => { fetchData(); }, []);
   const fetchData = async () => {
     try {
       const peopleRes = await getPeople();
