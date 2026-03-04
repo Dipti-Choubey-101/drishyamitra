@@ -18,6 +18,7 @@ export default function Dashboard() {
     const navigate = useNavigate();
     const username = localStorage.getItem("username");
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { fetchData(); }, []);
 
     const fetchData = async () => {

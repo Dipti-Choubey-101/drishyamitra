@@ -9,7 +9,8 @@ export default function LabelFaces() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-useEffect(() => { fetchData(); }, []);
+// eslint-disable-next-line react-hooks/exhaustive-deps  
+useEffect(() => { fetchData(); }, [photoId]);
   const fetchData = async () => {
     try {
       const facesRes = await getFacesInPhoto(photoId);

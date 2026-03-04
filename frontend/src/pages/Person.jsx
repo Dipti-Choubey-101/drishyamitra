@@ -10,7 +10,8 @@ export default function Person() {
   const [deletingId, setDeletingId] = useState(null);
   const navigate = useNavigate();
 
-useEffect(() => { fetchData(); }, []);
+// eslint-disable-next-line react-hooks/exhaustive-deps  
+useEffect(() => { fetchData(); }, [id]);
   const fetchData = async () => {
     try {
       const peopleRes = await getPeople();
