@@ -9,8 +9,7 @@ export default function LabelFaces() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => { fetchData(); }, [photoId]);
-
+useEffect(() => { fetchData(); }, [fetchData]);
   const fetchData = async () => {
     try {
       const facesRes = await getFacesInPhoto(photoId);
