@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: drishyamitra-backend
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ACCESS_TOKEN_EXPIRES=${JWT_ACCESS_TOKEN_EXPIRES}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GMAIL_USER=${GMAIL_USER}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - photo_data:/app/data/photos
+      - face_data:/app/data/faces
+      - delivery_data:/app/data/delivery_photos
+      - db_data:/app/instance
+    networks:
+      - drishyamitra-network
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: drishyamitra-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - drishyamitra-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: drishyamitra-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - drishyamitra-network
+
+  whatsapp:
+    build: ./whatsapp-service
+    container_name: drishyamitra-whatsapp
+    restart: unless-stopped
+    networks:
+      - drishyamitra-network
+    ports:
+      - "3001:3001"
+    volumes:
+      - whatsapp_auth:/app/.wwebjs_auth
+
+networks:
+  drishyamitra-network:
+    driver: bridge
+
+volumes:
+  photo_data:
+  face_data:
+  delivery_data:
+  db_data:
+  whatsapp_auth:
