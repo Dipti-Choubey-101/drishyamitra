@@ -198,7 +198,7 @@ Then open **http://localhost:3000** in your browser.
 
 ## 👨‍💻 Developer
 
-**Diptanil Sen**
+**Dipti Choubey**
 Built as part of college project — AI-Powered Photo Management System
 
 © 2026 Drishyamitra
